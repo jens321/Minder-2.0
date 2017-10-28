@@ -52,7 +52,7 @@ html,body {
   z-index: -1
 }
 
-.signup-form {
+.signup-form, .login-form {
   margin-top: 30px; 
   background-color: white; 
   padding: 20px; 
