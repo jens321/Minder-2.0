@@ -7,7 +7,7 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/profile', function(req, res, next) {
-  res.render('profile', { title: 'Minder' }); 
+  res.render('profile', { title: 'Minder', name: 'Jens Tuyls', email: 'jens.tuyls@icloud.com' }); 
 });
 
 module.exports = router;
