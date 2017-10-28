@@ -18,8 +18,46 @@
       <div class = "row">
         <div class = "col-md-12 text-center">
           <h1>Minder</h1>
-          <button type = "button" class = "btn btn-primary">Signup</button>
-          <button type = "button" class = "btn btn-primary">Login</button>
+          <button type = "button" class = "btn btn-primary" id = "signup-button">Signup</button>
+          <button type = "button" class = "btn btn-primary" id = "login-button">Login</button>
+        </div>
+      </div>
+
+      <!-- SIGNUP MODAL -->
+      <div class = "row hidden">
+        <div class = "offset-md-3 col-md-6">
+          <form class = "signup-form">
+            <h2>Signup</h2>
+            <div class = "form-group">
+              <label for = "name">Name</label>
+              <input type = "text" class = "form-control" id = "name-input" placeholder = "Please enter your name">
+            </div>
+            <div class = "form-group">
+              <label for = "email">Email address</label>
+              <input type = "email" class = "form-control" id = "email-input" placeholder = "Enter email">
+            </div>
+            <div class = "form-group">
+              <label for = "password">Password</label>
+              <input type = "password" class = "form-control" id = "password-input" placeholder = "Password">
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- LOGIN MODAL -->
+      <div class = "row hidden">
+        <div class = "offset-md-3 col-md-6">
+          <form class = "signup-form">
+            <h2>Login</h2>
+            <div class = "form-group">
+              <label for = "email">Email address</label>
+              <input type = "email" class = "form-control" id = "email-input" placeholder = "Enter email">
+            </div>
+            <div class = "form-group">
+              <label for = "password">Password</label>
+              <input type = "password" class = "form-control" id = "password-input" placeholder = "Password">
+            </div>
+          </form>
         </div>
       </div>
     </div>

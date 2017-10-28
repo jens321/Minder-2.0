@@ -21,6 +21,10 @@ html,body {
   box-shadow: none !important; 
 }
 
+.hidden {
+  display: none; 
+}
+
 .index-container {
   background-image: url("../images/b-signup.jpg");
   background-repeat: no-repeat; 
@@ -46,4 +50,11 @@ html,body {
   left: 0px;
   background-color: #B25E09; 
   z-index: -1
+}
+
+.signup-form {
+  margin-top: 30px; 
+  background-color: white; 
+  padding: 20px; 
+  border-radius: 20px; 
 }
