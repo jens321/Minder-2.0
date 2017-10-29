@@ -60,4 +60,13 @@ router.patch('/', function (req, res, next) {
   }); 
 });
 
+router.delete('/', function (req, res, next) {
+  var User = mongoose.model('User'); 
+
+  User.findByIdAndRemove(req.session.user._id, function (err, user) {
+    req.session.reset(); 
+    res.status(200).send('user successfully deleted');
+  });
+}); 
+
 module.exports = router;

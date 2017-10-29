@@ -25,6 +25,18 @@ $('#save-button').click(function (event) {
     });
 });
 
+$('#delete-button').click(function (event) {
+    event.preventDefault();
+    $.ajax({
+        url: "http://localhost:3000/users",
+        dataType: 'text',
+        type: 'delete',
+        success: function (data, status) {
+            window.location.replace('/'); 
+        }
+    })
+})
+
 // Add tags in edit mode
 $('#tag').keyup(function (event) {
     if (event.keyCode == 32) {
