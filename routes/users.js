@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
+var session = require('client-sessions');
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
@@ -23,6 +24,7 @@ router.post('/signup', function(req, res, next) {
   user.save(function (err, user) {
     if (err) throw err; 
     console.log('NEW USER SAVED IN DB');
+    req.session.user = user; 
     res.send(user); 
   }); 
 
