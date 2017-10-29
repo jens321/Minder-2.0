@@ -30,12 +30,33 @@ router.post('/signup', function(req, res, next) {
 
 }); 
 
+router.post('/login', function (req, res, next) { 
+
+  // load in the User model
+  var User = mongoose.model('User');
+
+  User.findOne({ email: req.body.email }, function(err, user)  {
+    if (err) throw err;
+    if (user.password === req.body.password) {
+      console.log(user); 
+      req.session.user = user; 
+      res.send(user);  
+    } else {
+      console.log('invalid email or password') 
+    }
+  }); 
+
+});
+
 router.patch('/', function (req, res, next) {
   var User = mongoose.model('User'); 
-   
-  User.update({ _id: req.session.user._id }, { name: req.body.name }, function(err, raw) {
-    console.log(raw);
-    console.log('updated'); 
+  
+  User.update({ _id: req.session.user._id }, { name: req.body.name, email: req.body.email }, function(err, raw) {
+    if (err) throw err; 
+    req.session.user.name = req.body.name;
+    req.session.user.email = req.body.email; 
+    console.log('updated user successfully'); 
+    res.status(200).send('User updated successfully!');   
   }); 
 });
 

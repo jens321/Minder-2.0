@@ -1,5 +1,6 @@
 // When edit button clicked, change to edit mode
-$('#edit-button').click(function () {
+$('#edit-button').click(function (event) {
+    event.preventDefault(); 
     $('.edit-form').removeClass('hidden');
     $('.view-card').addClass('hidden'); 
 });
@@ -11,7 +12,7 @@ $('#save-button').click(function (event) {
     event.preventDefault(); 
     $.ajax({
         url: "http://localhost:3000/users",
-        dataType: 'json',
+        dataType: 'text',
         type: 'patch',
         contentType: 'application/json',
         data: JSON.stringify({
@@ -19,13 +20,13 @@ $('#save-button').click(function (event) {
             'email': $('#email').val()
         }),
         success: function(data, status) {
-            console.log(data); 
+            window.location.replace('/profile') 
         }
     });
 });
 
 // Add tags in edit mode
-$('#tag-input').keyup(function (event) {
+$('#tag').keyup(function (event) {
     if (event.keyCode == 32) {
         var tagDelete = $('<span>').addClass('tag-delete').text('x');
         var tag = $('<span>').addClass('tag').text($(this).val() + ' ').append(tagDelete); 
