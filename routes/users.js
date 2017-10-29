@@ -1,9 +1,31 @@
 var express = require('express');
 var router = express.Router();
+var mongoose = require('mongoose');
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
   res.send('respond with a resource');
 });
+
+router.post('/signup', function(req, res, next) { 
+
+  // load in the User model
+  var User = mongoose.model('User'); 
+
+  // build new user object from req.body
+  var user = new User({
+    name: req.body.name,
+    email: req.body.email,
+    password: req.body.password
+  }); 
+
+  // save user to the database
+  user.save(function (err, user) {
+    if (err) throw err; 
+    console.log('NEW USER SAVED IN DB');
+    res.send(user); 
+  }); 
+
+}); 
 
 module.exports = router;

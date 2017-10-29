@@ -4,11 +4,30 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var mongoose = require('mongoose');
+var session = require('client-sessions');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
 
 var app = express();
+
+// setup mongoose
+mongoose.connect('mongodb://localhost/Minder');
+mongoose.Promise = global.Promise;
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function() {
+  console.log('CONNECTED TO MongoDB Minder'); 
+});
+
+var userSchema = mongoose.Schema({
+  name: String,
+  email: String,
+  password: String
+ });
+
+var User = mongoose.model('User', userSchema);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -42,5 +61,15 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+app.use(session({
+  cookieName: 'session',
+  secret: 'eg[isfd-8yF9-7w2315df{}+Ijsli;;to8',
+  duration: 30 * 60 * 1000,
+  activeDuration: 5 * 60 * 1000,
+  httpOnly: true,
+  secure: true,
+  ephemeral: true
+}));
 
 module.exports = app;
