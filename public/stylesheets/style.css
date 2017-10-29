@@ -21,6 +21,21 @@ html,body {
   box-shadow: none !important; 
 }
 
+.btn-info {
+  background-color: #B25E09; 
+  border: 1px solid #FFA041; 
+}
+
+.btn-info:hover {
+  background-color: #FFA041;
+  border: 1px solid #FFA041; 
+}
+
+.btn-info:active {
+  background-color: #B25E09 !important;
+  border: 1px solid #FFA041 !important; 
+}
+
 .hidden {
   display: none; 
 }
@@ -63,4 +78,29 @@ html,body {
   margin: 40px auto; 
   width: 200px; 
   display: block; 
+}
+
+#video {
+  margin-top: 20px; 
+  width:320px;
+  height:240px;
+}
+
+#photo {
+  width:320px;
+  height:240px;
+}
+
+#canvas {
+  display:none;
+}
+
+.camera {
+  width: 340px;
+  margin: 0px auto; 
+}
+
+.output {
+  width: 340px;
+  margin: 0px auto; 
 }
