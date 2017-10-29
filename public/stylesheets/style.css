@@ -104,3 +104,22 @@ html,body {
   width: 340px;
   margin: 0px auto; 
 }
+
+.tag {
+  padding: 10px; 
+  margin-right: 5px;
+  margin-bottom: 10px;  
+  background-color: #5AD7FF; 
+  color: white; 
+  border-radius: 10px;
+  display: inline-block;  
+}
+
+.tag-delete {
+  color: black; 
+  font-weight: bold; 
+}
+
+.tag-delete:hover {
+  cursor: pointer; 
+}
