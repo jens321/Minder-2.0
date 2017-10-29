@@ -5,14 +5,14 @@ $('.signup-form, .login-form').hide();
 
 // Signup button clicked => signup-modal
 $('#signup-button').click(function () {
-    $('.signup-form').fadeIn(); 
+    $('.signup-form').slideDown(); 
     $('.login-form').hide();  
 });
 
 // Login button clicked => login-modal
 $('#login-button').click(function () {
     $('.signup-form').hide(); 
-    $('.login-form').fadeIn();   
+    $('.login-form').slideDown();   
 });
 
 $('.profile-image').click(function() {

@@ -76,9 +76,9 @@
                     </div>
                 </div>
                 
-                <!-- PROFILE CARD -->
+                <!-- PROFILE CARD VIEW -->
                 <img src = "images/profile.jpg" width = "200px" height = "200px" class = "img-thumbnail profile-image"/>
-                <div class = "card">
+                <div class = "card view-card">
                     <div class = "card-body">
                         <h3 class = "card-title"><%= name %></h3>
                         <p class = "card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce in vestibulum arcu.</p>
@@ -89,10 +89,51 @@
                         <li class = "list-group-item">Education: </li>
                     </ul>
                     <div class = "card-body">
-                        <button class = "btn btn-primary">Edit Profile</button>
-                        <button class = "btn btn-danger">Delete Profile</button>
+                        <button class = "btn btn-primary" id = "edit-button">Edit Profile</button>
+                        <button class = "btn btn-danger" id = "delete-button">Delete Profile</button>
                     </div>
                 </div>
+
+                <!-- PROFILE CARD EDIT -->
+                <form class = "hidden edit-form">
+                    <div class = "card">
+                        <div class = "card-body">
+                            <div class = "form-group">
+                                <label for = "name">Name</label>
+                                <input type = "text" class = "form-control" id = "name-input" value = "<%= name %>">
+                            </div>
+                            <div class = "form-group">
+                                <label for = "description">Description</label>
+                                <input type = "text-area" class = "form-control" id = "description-input">
+                            </div>
+                        </div>
+                        <ul class = "list-group list-group-flush">
+                            <li class = "list-group-item">
+                                <div class = "form-group">
+                                    <label for = "email">Email</label>
+                                    <input type = "text" class = "form-control" id = "email-input" value = "<%= email %>">
+                                </div>
+                            </li>
+                            <li class = "list-group-item">
+                                <div class = "form-group">
+                                    <label for = "tags">Tags</label>
+                                    <div class = "taglist">
+                                    </div>
+                                    <input type = "text" class = "form-control" id = "tag-input" value = ""> 
+                                </div>
+                            </li>
+                            <li class = "list-group-item">
+                                <div class = "form-group">
+                                    <label for = "education">Education</label>
+                                    <input type = "text" class = "form-control" id = "education-input" value = "">
+                                </div>
+                            </li>
+                        </ul>
+                        <div class = "card-body">
+                            <button class = "btn btn-primary" id = "save-button">Save Changes</button>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -107,5 +148,6 @@
       
     <!-- CUSTOM SCRIPTS -->
     <script src = "javascripts/modal.js"></script>
+    <script src = "javascripts/edit-profile.js"></script>
   </body>
 </html>
