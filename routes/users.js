@@ -30,4 +30,13 @@ router.post('/signup', function(req, res, next) {
 
 }); 
 
+router.patch('/', function (req, res, next) {
+  var User = mongoose.model('User'); 
+   
+  User.update({ _id: req.session.user._id }, { name: req.body.name }, function(err, raw) {
+    console.log(raw);
+    console.log('updated'); 
+  }); 
+});
+
 module.exports = router;
