@@ -15,7 +15,15 @@ router.get('/profile', function(req, res, next) {
         req.session.reset(); 
         res.redirect('/'); 
       } else {
-        res.render('profile', { title: 'Minder', name: req.session.user.name, email: req.session.user.email }); 
+        res.render('profile', { 
+          title: 'Minder', 
+          name: req.session.user.name, 
+          email: req.session.user.email ,
+          location: req.session.user.location,
+          description: req.session.user.description,
+          education: req.session.user.education,
+          tags: req.session.user.tags
+        }); 
       }
     });
   } else {

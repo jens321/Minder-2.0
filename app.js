@@ -21,14 +21,6 @@ db.once('open', function() {
   console.log('CONNECTED TO MongoDB Minder'); 
 });
 
-var userSchema = mongoose.Schema({
-  name: String,
-  email: String,
-  password: String
- });
-
-var User = mongoose.model('User', userSchema);
-
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');

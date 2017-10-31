@@ -80,13 +80,20 @@
                 <img src = "images/profile.jpg" width = "200px" height = "200px" class = "img-thumbnail profile-image"/>
                 <div class = "card view-card">
                     <div class = "card-body">
-                        <h3 class = "card-title"><%= name %></h3>
-                        <p class = "card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce in vestibulum arcu.</p>
+                        <h3 class = "card-title" id = "name-view"><%= name %></h3>
+                        <p class = "card-text" id = "description-view"><%= description %></p>
                     </div>
                     <ul class = "list-group list-group-flush">
-                        <li class = "list-group-item">Email: <%= email %></li>
-                        <li class = "list-group-item">Tags: </li>
-                        <li class = "list-group-item">Education: </li>
+                        <li class = "list-group-item">Email: <span id = "email-view"><%= email %></span></li>
+                        <li class = "list-group-item">
+                            <div class = "taglist-view">
+                                <% for(var i = 0; i < tags.length; i++) { %>
+                                    <span class = "tag"><%= tags[i] %> <span class = "tag-delete">x</span></span>
+                                <% } %>
+                            </div>
+                            Tags: </li>
+                        <li class = "list-group-item">Education: <span id = "education-view"><%= education %></span></li>
+                        <li class = "list-group-item">Location: <span id = "location-view"><%= location %></span></li>
                     </ul>
                     <div class = "card-body">
                         <button class = "btn btn-primary" id = "edit-button">Edit Profile</button>
@@ -100,32 +107,41 @@
                         <div class = "card-body">
                             <div class = "form-group">
                                 <label for = "name">Name</label>
-                                <input type = "text" class = "form-control" id = "name" value = "<%= name %>">
+                                <input type = "text" class = "form-control" id = "name" value = "<%= name %>" value = "Please enter your name here">
                             </div>
                             <div class = "form-group">
                                 <label for = "description">Description</label>
-                                <input type = "text-area" class = "form-control" id = "description">
+                                <input type = "text-area" class = "form-control" id = "description" value = "<%= description %>" placeholder = "Write something about yourself here">
                             </div>
                         </div>
                         <ul class = "list-group list-group-flush">
                             <li class = "list-group-item">
                                 <div class = "form-group">
                                     <label for = "email">Email</label>
-                                    <input type = "text" class = "form-control" id = "email" value = "<%= email %>">
+                                    <input type = "text" class = "form-control" id = "email" value = "<%= email %>" placeholder = "e.g. joe@minder.com">
                                 </div>
                             </li>
                             <li class = "list-group-item">
                                 <div class = "form-group">
                                     <label for = "tags">Tags</label>
-                                    <div class = "taglist">
+                                    <div class = "taglist-edit">
+                                        <% for(var i = 0; i < tags.length; i++) { %>
+                                            <span class = "tag"><%= tags[i] %> <span class = "tag-delete">x</span></span>
+                                        <% } %>
                                     </div>
-                                    <input type = "text" class = "form-control" id = "tag" value = ""> 
+                                    <input type = "text" class = "form-control" id = "tag" value = "" placeholder = "e.g. Coding, Communcation"> 
                                 </div>
                             </li>
                             <li class = "list-group-item">
                                 <div class = "form-group">
                                     <label for = "education">Education</label>
-                                    <input type = "text" class = "form-control" id = "education" value = "">
+                                    <input type = "text" class = "form-control" id = "education" value = "<%= education %>" placeholder = "e.g. UC Irvine">
+                                </div>
+                            </li>
+                            <li class = "list-group-item">
+                                <div class = "form-group">
+                                    <label for = "location">Location</label>
+                                    <input type = "text" class = "form-control" id = "location" value = "<%= location %>" placeholder = "e.g. San Francisco, CA">
                                 </div>
                             </li>
                         </ul>
