@@ -12,35 +12,39 @@ $('#save-button').click(function (event) {
     event.preventDefault();
     
     // get all the new tags 
-    var tags = new Array($('.taglist-edit').children().map(function (index, element) {
-        return $(element).text().split(' ')[0];  
-    })); 
-    tags.pop(); 
+    var tags = $('.taglist-edit').children();
+    var tagList = []; 
+    for (var i = 0; i < tags.length; ++i) {
+        tagList.push($(tags[i]).text().split(' ')[0]); 
+    }
 
     var userFormData = JSON.stringify({
         'name': $('#name').val(), 
         'email': $('#email').val(),
         'description': $('#description').val(),
-        'tags': tags,
+        'tags': tagList,
         'education': $('#education').val(),
         'location': $('#location').val()
-    });
+    });   
 
-    console.log(tags); 
- 
     $.ajax({
         url: "http://localhost:3000/users",
         dataType: 'text',
         type: 'patch',
         contentType: 'application/json',
         data: userFormData,
-        success: function(data, status) {
+        success: function(data, status) { 
             data = JSON.parse(data);  
             $('#name-view').text(data.name);
             $('#email-view').text(data.email);
             $('#location-view').text(data.location);
             $('#description-view').text(data.description);
-            $('#education-view').text(data.description);  
+            $('#education-view').text(data.education);
+            $('.taglist-view').empty();
+            for (var i = 0; i < data.tags.length; ++i) { 
+                var newTag = $('<span>').addClass('tag').text(data.tags[i]);
+                $('.taglist-view').append(newTag); 
+            }  
         }
     });
 });
@@ -68,6 +72,6 @@ $('#tag').keyup(function (event) {
 });
 
 // use event delegation to delete tags
-$('.taglist').on('click', '.tag-delete', function () {
+$('.taglist-edit').on('click', '.tag-delete', function () {
     $(this).parent().remove(); 
 })

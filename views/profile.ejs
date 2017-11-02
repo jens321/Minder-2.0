@@ -86,12 +86,13 @@
                     <ul class = "list-group list-group-flush">
                         <li class = "list-group-item">Email: <span id = "email-view"><%= email %></span></li>
                         <li class = "list-group-item">
+                            Tags 
                             <div class = "taglist-view">
                                 <% for(var i = 0; i < tags.length; i++) { %>
-                                    <span class = "tag"><%= tags[i] %> <span class = "tag-delete">x</span></span>
+                                    <span class = "tag"><%= tags[i] %></span>
                                 <% } %>
                             </div>
-                            Tags: </li>
+                            </li>
                         <li class = "list-group-item">Education: <span id = "education-view"><%= education %></span></li>
                         <li class = "list-group-item">Location: <span id = "location-view"><%= location %></span></li>
                     </ul>
