@@ -21,7 +21,7 @@ router.post('/signup', function(req, res, next) {
     education: "",
     description: "",
     tags: [],
-    imageUrlPath: ""
+    imageUrlPath: "images/profile.jpg"
   }); 
 
   // save user to the database
@@ -48,18 +48,28 @@ router.post('/login', function (req, res, next) {
 
 });
 
+router.get('/logout', function (req, res, next) {
+  res.session.reset();
+  res.redirect('/'); 
+});
+
 router.patch('/', function (req, res, next) { 
 
-  
+  if (req.body.image) {
+    var buffer = new Buffer(req.body.image, 'base64');
+    fs.writeFileSync(`${__dirname}/../public/images/profile/${req.session.user._id}.png`, buffer);
+    req.body.imageUrlPath = `../images/profile/${req.session.user._id}.png`; 
+    delete req.body.image; 
+  }
 
-  User.update({ _id: req.session.user._id }, req.body, function(err, raw) {
+  User.findByIdAndUpdate(req.session.user._id, req.body, {new: true}, function(err, newUser) {
     if (err) console.log(err);  
     
-    req.session.user = Object.assign(req.session.user, req.body);
+    req.session.user = newUser 
     console.log(req.session.user);  
 
     console.log('updated user successfully'); 
-    res.status(200).send(req.body);   
+    res.status(200).json(newUser);   
   }); 
 });
 

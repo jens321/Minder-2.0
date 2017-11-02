@@ -22,7 +22,8 @@ router.get('/profile', function(req, res, next) {
           location: req.session.user.location,
           description: req.session.user.description,
           education: req.session.user.education,
-          tags: req.session.user.tags
+          tags: req.session.user.tags,
+          imageUrlPath: req.session.user.imageUrlPath
         }); 
       }
     });

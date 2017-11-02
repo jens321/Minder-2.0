@@ -18,24 +18,21 @@ $('#save-button').click(function (event) {
         tagList.push($(tags[i]).text().split(' ')[0]); 
     }
 
-    var userFormData = JSON.stringify({
+    var userFormData = {
         'name': $('#name').val(), 
         'email': $('#email').val(),
         'description': $('#description').val(),
         'tags': tagList,
         'education': $('#education').val(),
         'location': $('#location').val(),
-        'image': $('.profile-image')[0].currentSrc
-    });   
+        'image': $('.profile-image')[0].currentSrc.split(',')[1]
+    };   
 
     $.ajax({
-        url: "http://localhost:3000/users",
-        dataType: 'text',
+        url: "/users",
         type: 'patch',
-        contentType: 'application/json',
         data: userFormData,
-        success: function(data, status) { 
-            data = JSON.parse(data);  
+        success: function(data, status) {   
             $('#name-view').text(data.name);
             $('#email-view').text(data.email);
             $('#location-view').text(data.location);
@@ -45,7 +42,8 @@ $('#save-button').click(function (event) {
             for (var i = 0; i < data.tags.length; ++i) { 
                 var newTag = $('<span>').addClass('tag').text(data.tags[i]);
                 $('.taglist-view').append(newTag); 
-            }  
+            }
+            $('.profile-image').attr('src', data.imageUrlPath); 
         }
     });
 });
@@ -53,7 +51,7 @@ $('#save-button').click(function (event) {
 $('#delete-button').click(function (event) {
     event.preventDefault();
     $.ajax({
-        url: "http://localhost:3000/users",
+        url: "/users",
         dataType: 'text',
         type: 'delete',
         success: function (data, status) {
