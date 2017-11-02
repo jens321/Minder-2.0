@@ -3,6 +3,7 @@ var router = express.Router();
 var mongoose = require('mongoose');
 var session = require('client-sessions');
 var User = require('../models/user.js'); 
+var fs = require('fs'); 
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
@@ -19,7 +20,8 @@ router.post('/signup', function(req, res, next) {
     location: "",
     education: "",
     description: "",
-    tags: []
+    tags: [],
+    imageUrlPath: ""
   }); 
 
   // save user to the database
@@ -47,6 +49,8 @@ router.post('/login', function (req, res, next) {
 });
 
 router.patch('/', function (req, res, next) { 
+
+  
 
   User.update({ _id: req.session.user._id }, req.body, function(err, raw) {
     if (err) console.log(err);  

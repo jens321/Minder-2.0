@@ -7,7 +7,8 @@ var userSchema = mongoose.Schema({
     description: String,
     tags: [String],
     education: String,
-    location: String
+    location: String,
+    imageUrlPath: String 
    });
 
 var User = mongoose.model('User', userSchema);

@@ -24,7 +24,8 @@ $('#save-button').click(function (event) {
         'description': $('#description').val(),
         'tags': tagList,
         'education': $('#education').val(),
-        'location': $('#location').val()
+        'location': $('#location').val(),
+        'image': $('.profile-image')[0].currentSrc
     });   
 
     $.ajax({
