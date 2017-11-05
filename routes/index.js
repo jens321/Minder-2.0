@@ -33,4 +33,8 @@ router.get('/profile', function(req, res, next) {
   }
 });
 
+router.get('/discovery', function(req, res, next) {
+  res.render('discovery', {title: 'Minder'}); 
+})
+
 module.exports = router;

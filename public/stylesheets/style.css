@@ -129,3 +129,11 @@ html,body {
   height: 300px;
   margin: 10px auto; 
 }
+
+#search-bar {
+  margin-top: 10px; 
+}
+
+.view-card {
+  margin-top: 10px; 
+}
