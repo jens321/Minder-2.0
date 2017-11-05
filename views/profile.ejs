@@ -94,7 +94,7 @@
                             </div>
                             </li>
                         <li class = "list-group-item">Education: <span id = "education-view"><%= education %></span></li>
-                        <li class = "list-group-item">Location: <span id = "location-view"><%= location %></span></li>
+                        <li class = "list-group-item text-center">Location: <span id = "location-view"><%= location %></span><div id = "map"></div></li>
                     </ul>
                     <div class = "card-body">
                         <button class = "btn btn-primary" id = "edit-button">Edit Profile</button>
@@ -162,9 +162,13 @@
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
-      
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAKef04CW7r1GIdrLA6bBPMivgEcKmd5Ps&callback=initialize" type="text/javascript"></script>
+    
+    
+
     <!-- CUSTOM SCRIPTS -->
     <script src = "javascripts/modal.js"></script>
     <script src = "javascripts/edit-profile.js"></script>
+    <script src = "javascripts/location.js"></script>
   </body>
 </html>

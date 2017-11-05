@@ -9,6 +9,7 @@ $('#edit-button').click(function (event) {
 $('#save-button').click(function (event) {
     $('.edit-form').addClass('hidden');
     $('.view-card').removeClass('hidden');
+    codeAddress();
     event.preventDefault();
     
     // get all the new tags 
