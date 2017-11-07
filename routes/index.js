@@ -36,7 +36,15 @@ router.get('/profile', function(req, res, next) {
 });
 
 router.get('/discovery', function(req, res, next) {
-  res.render('discovery', {title: 'Minder'}); 
+
+  // filter for people with similar tags
+  User.find({ tags: { $in: req.session.user.tags } })
+    .then(function (data) {
+      res.render('discovery', {
+        title: 'Minder', 
+        people: data
+      }); 
+    }); 
 })
 
 router.get('/random', function(req, res, next) { 

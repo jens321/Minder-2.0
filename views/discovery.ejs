@@ -48,15 +48,17 @@
             </div>
         </div>
         <div class = "row">
-            <div class = "col-md-4">
-                <div class = "card view-card">
-                    <img class="card-img-top" src="" alt="Card image cap">
-                    <div class = "card-body">
-                        <h3 class = "card-title" id = "name-view"></h3>
-                        <p class = "card-text" id = "description-view"></p>
+            <% for (var i = 0; i < people.length; ++i) { %>
+                <div class = "col-md-4">
+                    <div class = "card view-card">
+                        <img class="card-img-top" src="<%= people[i].imageUrlPath %>" alt="Card image cap">
+                        <div class = "card-body">
+                            <h3 class = "card-title" id = "name-view"><%= people[i].name %></h3>
+                            <p class = "card-text" id = "description-view"><%= people[i].description %></p>
+                        </div>
                     </div>
                 </div>
-            </div>
+            <% } %>
         </div>
     </div>
 
