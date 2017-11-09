@@ -1,4 +1,0 @@
-$.ajax({
-    url: '/random-users',
-    
-})

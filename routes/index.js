@@ -47,6 +47,18 @@ router.get('/discovery', function(req, res, next) {
     }); 
 })
 
+router.get('/search/:searchQuery', function(req, res, next) {
+  console.log(req.params); 
+  if(req.params.searchQuery.trim() === '') return res.end();
+
+  User.find({ name: { $regex: req.params.searchQuery } })
+    .select("name description imageUrlPath")
+    .then(function (data) {
+      res.json(data);  
+    });
+
+});
+
 router.get('/random', function(req, res, next) { 
   axios.get('https://randomuser.me/api/?inc=name,email,picture,login&results=10')
     .then(function (response) {
