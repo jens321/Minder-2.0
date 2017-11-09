@@ -53,6 +53,14 @@ router.get('/logout', function (req, res, next) {
   res.redirect('/'); 
 });
 
+router.get('/:id', function(req, res, next) {
+  User.findById(req.params.id, function(err, user) {
+    if (err) throw err; 
+    delete user.password;
+    res.render('view-user', {title: 'Minder', user: user}); 
+  });
+});
+
 router.patch('/', function (req, res, next) { 
 
   if (req.body.image) {
