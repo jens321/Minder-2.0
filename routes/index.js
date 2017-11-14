@@ -9,6 +9,11 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Minder' });
 });
 
+router.get('/logout', function (req, res, next) {
+  req.session.reset();
+  res.redirect('/'); 
+});
+
 router.get('/profile', function(req, res, next) {
   if (req.session && req.session.user) { 
     User.findOne({ email: req.session.user.email }, function (err, user) {
@@ -47,8 +52,7 @@ router.get('/discovery', function(req, res, next) {
 })
 
 router.get('/chat', function(req, res, next) {
-  let id = ["5a0954ecb4f2e4bd013b5a1b", "5a0954ecb4f2e4bd013b5a1c", "5a0954ecb4f2e4bd013b5a1d", "5a0953b8e905afbc3bedd43a"]; 
-  User.find({ '_id': id }, function(err, friends) {
+  User.find({ '_id': req.session.user.friends }, function(err, friends) {
     res.render('chat', { title: 'Minder', friends: friends}); 
   });
 });

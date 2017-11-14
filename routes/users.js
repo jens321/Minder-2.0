@@ -49,10 +49,6 @@ router.post('/login', function (req, res, next) {
 
 });
 
-router.get('/logout', function (req, res, next) {
-  req.session.reset();
-  res.redirect('/'); 
-});
 
 router.get('/:id', function(req, res, next) {
   User.findById(req.params.id, function(err, user) {

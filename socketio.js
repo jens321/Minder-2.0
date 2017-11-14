@@ -1,7 +1,17 @@
-// use separte chat route
-// use list groups
-// make chat model 
-// date: { type: Date, default: Date.now()}
-// sender, recipient, message 
-// use data-id html attribute 
-// use hash with identifier to create unique id
+let io = null;
+let sockets = {};
+
+module.exports = {
+    init: function(server) {
+      io = require('socket.io')(server);
+      io.on('connection', function(socket){
+        console.log('a user connected');
+      });
+    },
+    instance: function() {
+      return io;
+    },
+    sockets: function() {
+      return sockets;
+    }
+  }
