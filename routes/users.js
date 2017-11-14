@@ -4,6 +4,7 @@ var mongoose = require('mongoose');
 var session = require('client-sessions');
 var User = require('../models/user.js'); 
 var fs = require('fs'); 
+var Chat = require('../models/chat.js');
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
@@ -59,6 +60,41 @@ router.get('/:id', function(req, res, next) {
     delete user.password;
     res.render('view-user', {title: 'Minder', user: user}); 
   });
+});
+
+router.post('/chat/:id', function (req, res, next) {
+  let message = Chat({
+    sender: req.session.user._id,
+    receiver: req.body.receiver,
+    message: req.body.message,
+    date: Date.now()
+  })
+
+  message.save(function(err, newMessage) {
+    if (err) throw err;
+    console.log(newMessage); 
+  });
+
+}); 
+
+router.get('/chat/history', function (req, res, next) { 
+  let messageHistory = []; 
+  Chat.find({ 'sender': req.query.receiver }, function (err, messages) {
+    messageHistory = messageHistory.concat(messages); 
+
+    Chat.find({ 'receiver': req.query.receiver }, function (err, messages) {
+      messageHistory = messageHistory.concat(messages);
+      
+      messageHistory.sort(function (m1, m2) {
+        return m1.date > m2.date; 
+      }); 
+
+      console.log(messageHistory); 
+      res.status(200).json(messageHistory);  
+    }); 
+  })
+
+
 });
 
 router.patch('/', function (req, res, next) { 

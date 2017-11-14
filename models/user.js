@@ -9,7 +9,7 @@ var userSchema = mongoose.Schema({
     friends: [String], 
     education: String,
     location: String,
-    imageUrlPath: String 
+    imageUrlPath: String
    });
 
 var User = mongoose.model('User', userSchema);

@@ -1,8 +1,8 @@
-var express = require('express');
-var router = express.Router();
-var mongoose = require('mongoose');
-var axios = require('axios'); 
-var User = require('../models/user.js'); 
+let express = require('express');
+let router = express.Router();
+let mongoose = require('mongoose');
+let axios = require('axios'); 
+let User = require('../models/user.js');  
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -10,8 +10,7 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/profile', function(req, res, next) {
-  if (req.session && req.session.user) {
-    var User = mongoose.model('User'); 
+  if (req.session && req.session.user) { 
     User.findOne({ email: req.session.user.email }, function (err, user) {
       if (!user) {
         req.session.reset(); 
@@ -48,13 +47,12 @@ router.get('/discovery', function(req, res, next) {
 })
 
 router.get('/chat', function(req, res, next) {
-  var id = "5a0954ecb4f2e4bd013b5a1b"; 
-  var friends = []; 
-  User.findById(id, function(err, friend) {
-    friends.push(friend); 
-    res.render('chat', { title: 'Minder', friends: friends});
-  }); 
+  let id = ["5a0954ecb4f2e4bd013b5a1b", "5a0954ecb4f2e4bd013b5a1c", "5a0954ecb4f2e4bd013b5a1d", "5a0953b8e905afbc3bedd43a"]; 
+  User.find({ '_id': id }, function(err, friends) {
+    res.render('chat', { title: 'Minder', friends: friends}); 
+  });
 });
+
 
 router.get('/search/:searchQuery', function(req, res, next) {
   console.log(req.params); 
@@ -73,8 +71,8 @@ router.get('/random', function(req, res, next) {
     .then(function (response) {
       users = response.data.results;  
       newUsers = []; 
-      for (var i = 0; i < users.length; ++i) {
-        var newUser = User({
+      for (let i = 0; i < users.length; ++i) {
+        let newUser = User({
           name: users[i].name.first + " " + users[i].name.last,
           email: users[i].email,
           password: users[i].login.password,
@@ -97,13 +95,13 @@ router.get('/random', function(req, res, next) {
 }); 
 
 function generateRandomTags() {
-  var randomTags = ['hanging out with friends', 'hiking', 'swimming', 'HTML', 'CSS', 'JavaScript', 'reading', 'basketball', 'ice skating', 'coding', 'studying', 'Netflix', 'Game of Thrones'];
-  var tagCount = Math.floor(Math.random()*randomTags.length);
-  var tagList = []; 
+  let randomTags = ['hanging out with friends', 'hiking', 'swimming', 'HTML', 'CSS', 'JavaScript', 'reading', 'basketball', 'ice skating', 'coding', 'studying', 'Netflix', 'Game of Thrones'];
+  let tagCount = Math.floor(Math.random()*randomTags.length);
+  let tagList = []; 
 
-  var seen = {}; 
-  for (var i = 0; i < tagCount; ++i) {
-    var element = randomTags[Math.floor(Math.random()*randomTags.length)]
+  let seen = {}; 
+  for (let i = 0; i < tagCount; ++i) {
+    let element = randomTags[Math.floor(Math.random()*randomTags.length)]
     if (!seen.hasOwnProperty(element)) {
       seen[element] = true; 
       tagList.push(element);
@@ -114,7 +112,7 @@ function generateRandomTags() {
 }
 
 function generateRandomLocation() {
-  var randomLocations = ['New York', 'San Francisco', 'Irvine', 'Los Angeles', 'Boston', 'Cambridge'];
+  let randomLocations = ['New York', 'San Francisco', 'Irvine', 'Los Angeles', 'Boston', 'Cambridge'];
   return randomLocations[Math.floor(Math.random()*randomLocations.length)]; 
 }
 

@@ -137,3 +137,44 @@ html,body {
 .view-card {
   margin-top: 10px; 
 }
+
+#message-container {
+  position: relative;
+}
+
+#message-bar {
+  position: absolute; 
+  bottom: -46px; 
+}
+
+.message-area {
+  overflow: auto; 
+  height: 500px; 
+}
+
+.sent {
+  padding: 10px;
+  background-color: darkcyan;
+  color: white;
+  float: right;
+  clear: both; 
+  border-radius: 10px;  
+}
+
+.received {
+  float: left;
+  padding: 10px;
+  clear: both;
+  background-color: #74077F;
+  color: white; 
+  border-radius: 10px; 
+}
+
+.message {
+  display: inline-block; 
+  margin-bottom: 3px; 
+}
+
+.selected {
+  background-color: pink; 
+}
