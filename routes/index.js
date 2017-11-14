@@ -47,6 +47,15 @@ router.get('/discovery', function(req, res, next) {
     }); 
 })
 
+router.get('/chat', function(req, res, next) {
+  var id = "5a0954ecb4f2e4bd013b5a1b"; 
+  var friends = []; 
+  User.findById(id, function(err, friend) {
+    friends.push(friend); 
+    res.render('chat', { title: 'Minder', friends: friends});
+  }); 
+});
+
 router.get('/search/:searchQuery', function(req, res, next) {
   console.log(req.params); 
   if(req.params.searchQuery.trim() === '') return res.end();
