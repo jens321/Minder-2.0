@@ -5,6 +5,7 @@ var session = require('client-sessions');
 var User = require('../models/user.js'); 
 var fs = require('fs'); 
 var Chat = require('../models/chat.js');
+var socketio = require('../socketio')
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
@@ -68,7 +69,13 @@ router.post('/chat/:id', function (req, res, next) {
 
   message.save(function(err, newMessage) {
     if (err) throw err;
-    console.log(newMessage); 
+
+    var ids = [req.session.user._id, req.body.receiver];
+    ids.sort();
+    var room = ids[0] + ids[1]; 
+
+    socketio.instance().to(`chat_${room}`).emit('chat', newMessage);
+
   });
 
 }); 
@@ -85,7 +92,14 @@ router.get('/chat/history', function (req, res, next) {
         return m1.date > m2.date; 
       }); 
 
-      console.log(messageHistory); 
+      var ids = [req.session.user._id, req.query.receiver];
+      ids.sort();
+      var room = ids[0] + ids[1]; 
+
+      if(socketio.sockets()[req.session.user._id]) {
+        socketio.sockets()[req.session.user._id].join(`chat_${room}`);
+        console.log('user joined room', room); 
+      }
       res.status(200).json(messageHistory);  
     }); 
   })

@@ -51,10 +51,25 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
 
-    <script src = "/javascripts/chat.js"></script>
     <script src="/socket.io/socket.io.js"></script>
     <script>
-      var socket = io();
+        var socket = io({
+            query: {
+                id: '<%= id %>'
+            }
+        });
+
+        socket.on('chat', function(newMessage) {
+            let receiverId = $(this).attr('data-id');
+            let value = newMessage.message; 
+            console.log('message received!'); 
+
+            if (newMessage.sender !== '<%= id %>') {
+                let newMessage = $('<p>').addClass('message received').text(value); 
+                $('.message-area').append(newMessage);
+            }
+        });
     </script>
+    <script src = "/javascripts/chat.js"></script>
 
 <% include footer %>

@@ -55,3 +55,4 @@ $('.friend-list').on('click', '.friend', function (event) {
         console.log(err); 
     });
 });
+

@@ -53,7 +53,7 @@ router.get('/discovery', function(req, res, next) {
 
 router.get('/chat', function(req, res, next) {
   User.find({ '_id': req.session.user.friends }, function(err, friends) {
-    res.render('chat', { title: 'Minder', friends: friends}); 
+    res.render('chat', { title: 'Minder', friends: friends, id: req.session.user._id }); 
   });
 });
 
