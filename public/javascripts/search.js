@@ -15,8 +15,8 @@ $('#search-bar').on('keyup', function (event) {
                     var profileLink = $('<a>').attr('href', `/users/${user._id}`); 
                     var imageWithLink = profileLink.append(image); 
                     var cardBody = $('<div>').addClass('card-body'); 
-                    var name = $('<h3>').addClass('card-title').attr('id', 'name-view').text(user.name); 
-                    var description = $('<p>').addClass('card-text').attr('id', 'description-view').text(user.description); 
+                    var name = $('<h3>').addClass('card-title name-view').text(user.name); 
+                    var description = $('<p>').addClass('card-text description-view').text(user.description); 
                     
                     var fullCardBody = cardBody.append(name, description); 
                     var fullCard = card.append(imageWithLink, fullCardBody); 

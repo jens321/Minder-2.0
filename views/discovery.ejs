@@ -41,8 +41,9 @@
                     <div class = "card view-card">
                         <a href = "/users/<%=people[i]._id%>"><img class="card-img-top" src="<%= people[i].imageUrlPath %>" alt="Card image cap"></a>
                         <div class = "card-body">
-                            <h3 class = "card-title" id = "name-view"><%= people[i].name %></h3>
-                            <p class = "card-text" id = "description-view"><%= people[i].description %></p>
+                            <h3 class = "card-title name-view" data-id="<%= people[i]._id %>"><%= people[i].name %></h3>
+                            <p class = "card-text description-view"><%= people[i].description %></p>
+                            <button class = "btn btn-primary connect-button">Connect</button>
                         </div>
                     </div>
                 </div>
@@ -60,5 +61,6 @@
 
     <!-- CUSTOM SCRIPTS -->
     <script src = "/javascripts/search.js"></script>
+    <script src = "/javascripts/connect.js"></script>
     
     <% include footer %>

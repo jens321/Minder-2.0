@@ -50,6 +50,18 @@ router.post('/login', function (req, res, next) {
 
 });
 
+router.post('/connect/:id', function(req, res, next) {
+  console.log('intial friends', req.session.user.friends); 
+  req.session.user.friends.push(req.params.id); 
+  var updatedConnections = req.session.user.friends; 
+  console.log(updatedConnections); 
+  User.findByIdAndUpdate(req.session.user._id, { friends: updatedConnections }, { new: true }, function(err, newUser) {
+    req.session.user = newUser; 
+    console.log(req.session.user); 
+    res.end(); 
+  })
+});
+
 
 router.get('/:id', function(req, res, next) {
   User.findById(req.params.id, function(err, user) {
@@ -82,10 +94,10 @@ router.post('/chat/:id', function (req, res, next) {
 
 router.get('/chat/history', function (req, res, next) { 
   let messageHistory = []; 
-  Chat.find({ 'sender': req.query.receiver }, function (err, messages) {
+  Chat.find({ 'sender': req.query.receiver, 'receiver': req.session.user._id }, function (err, messages) {
     messageHistory = messageHistory.concat(messages); 
 
-    Chat.find({ 'receiver': req.query.receiver }, function (err, messages) {
+    Chat.find({ 'receiver': req.query.receiver, 'sender': req.session.user._id }, function (err, messages) {
       messageHistory = messageHistory.concat(messages);
       
       messageHistory.sort(function (m1, m2) {
@@ -102,7 +114,7 @@ router.get('/chat/history', function (req, res, next) {
       }
       res.status(200).json(messageHistory);  
     }); 
-  })
+  });
 
 
 });

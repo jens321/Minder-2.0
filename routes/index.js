@@ -44,6 +44,7 @@ router.get('/discovery', function(req, res, next) {
   // filter for people with similar tags
   User.find({ tags: { $in: req.session.user.tags }, _id: { $nin: [req.session.user._id] } })
     .then(function (data) {
+      console.log(data); 
       res.render('discovery', {
         title: 'Minder', 
         people: data
