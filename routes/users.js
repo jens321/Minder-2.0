@@ -15,7 +15,7 @@ router.get('/', function(req, res, next) {
 router.post('/signup', function(req, res, next) { 
 
   // build new user object from req.body
-  var user = new User({
+  let user = new User({
     name: req.body.name,
     email: req.body.email,
     password: req.body.password,
@@ -23,6 +23,9 @@ router.post('/signup', function(req, res, next) {
     education: "",
     description: "",
     tags: [],
+    connections: [],
+    pending: [],
+    invitations: [], 
     imageUrlPath: "images/profile.jpg"
   }); 
 
@@ -81,7 +84,24 @@ router.patch('/connect/accept/:id', function(req, res, next) {
       res.end(); 
     });
   });
-    
+
+});
+
+router.patch('/connect/cancel/:id', function(req, res, next) {
+  
+  User.findByIdAndUpdate(req.session.user._id, {
+    $pull: { pending: req.params.id }
+   },{ new: true }, function(err, newUser) {
+   req.session.user = newUser;  
+   
+   User.findByIdAndUpdate(req.params.id, {
+     $pull: { invitations: req.session.user._id }
+   }, { new: true }, function(err, newUser) {
+     console.log(newUser); 
+     res.end(); 
+   });
+ });
+
 });
 
 router.get('/:id', function(req, res, next) {

@@ -12,7 +12,20 @@ router.get('/', function(req, res, next) {
 // GET Discovery
 router.get('/discovery', function(req, res, next) {
   // filter for people with similar tags
-  User.find({ tags: { $in: req.session.user.tags }, _id: { $nin: [req.session.user._id] } })
+  let connections = req.session.user.connections.map(function(element) {
+    return mongoose.Types.ObjectId(element); 
+  }); 
+  let pending = req.session.user.pending.map(function(element) {
+    return mongoose.Types.ObjectId(element);
+  });
+  let invitations = req.session.user.invitations.map(function(element) {
+    return mongoose.Types.ObjectId(element);
+  });
+
+  invalidIds = connections.concat(pending, invitations);
+  invalidIds.push(req.session.user._id);    
+
+  User.find({ tags: { $in: req.session.user.tags }, _id: { $nin: invalidIds  } })
     .then(function (data) {
       console.log(data); 
       res.render('discovery', {

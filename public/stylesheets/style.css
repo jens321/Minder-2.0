@@ -198,6 +198,7 @@ html,body {
 .invitation-card, .pending-card {
   width: 150px; 
   display: inline-block; 
+  vertical-align: top; 
 }
 
 #invitations {

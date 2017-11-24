@@ -1,6 +1,3 @@
-$(function() {
-    $('.connection').first().addClass('selected'); 
-});
 
 $('#message-bar').on('keyup', function (event) {
     let value = $(this).val().trim();
