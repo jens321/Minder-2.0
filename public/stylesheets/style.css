@@ -140,16 +140,23 @@ html,body {
 
 #message-container {
   position: relative;
+  border-top: 1px solid #efefef;
+  border-left: 1px solid #efefef;
+  border-right: 1px solid #efefef;
+  border-radius: 5px; 
+  padding: 0px; 
 }
 
 #message-bar {
   position: absolute; 
-  bottom: -46px; 
+  bottom: 0px; 
+  left: 0px; 
 }
 
 .message-area {
   overflow: auto; 
-  height: 500px; 
+  height: 400px;  
+  padding: 10px; 
 }
 
 .sent {
@@ -176,5 +183,13 @@ html,body {
 }
 
 .selected {
-  background-color: pink; 
+  background-color: #0AD8FF; 
+}
+
+#message-box {
+  margin-top: 30px; 
+}
+
+#chat-header {
+  margin-top: 20px; 
 }
