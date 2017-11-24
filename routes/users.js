@@ -50,18 +50,39 @@ router.post('/login', function (req, res, next) {
 
 });
 
-router.post('/connect/:id', function(req, res, next) {
-  console.log('intial friends', req.session.user.friends); 
-  req.session.user.friends.push(req.params.id); 
-  var updatedConnections = req.session.user.friends; 
-  console.log(updatedConnections); 
-  User.findByIdAndUpdate(req.session.user._id, { friends: updatedConnections }, { new: true }, function(err, newUser) {
+router.post('/connect/:id', function(req, res, next) { 
+
+  User.findByIdAndUpdate(req.session.user._id, { $push: { pending: req.params.id } }, { new: true }, function(err, newUser) {
     req.session.user = newUser; 
     console.log(req.session.user); 
     res.end(); 
-  })
+  });
+
+  User.findByIdAndUpdate(req.params.id, { $push: { invitations: req.session.user._id }}, { new: true }, function(err, newUser) {
+    console.log(newUser);
+    res.end(); 
+  }); 
+
 });
 
+router.patch('/connect/accept/:id', function(req, res, next) {
+
+  User.findByIdAndUpdate(req.session.user._id, {
+     $pull: { invitations: req.params.id }, 
+     $push: { connections: req.params.id } 
+    },{ new: true }, function(err, newUser) {
+    req.session.user = newUser;  
+    
+    User.findByIdAndUpdate(req.params.id, {
+      $pull: { pending: req.session.user._id },
+      $push: { connections: req.session.user._id } 
+    }, { new: true }, function(err, newUser) {
+      console.log(newUser); 
+      res.end(); 
+    });
+  });
+    
+});
 
 router.get('/:id', function(req, res, next) {
   User.findById(req.params.id, function(err, user) {

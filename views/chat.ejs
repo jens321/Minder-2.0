@@ -11,19 +11,22 @@
         <div class = "collapse navbar-collapse" id = "navbarNav">
             <ul class = "navbar-nav">
                 <li class = "nav-item">
-                    <a class = "nav-link" href = "/discovery">Discovery</a>
+                    <a class = "nav-link" href = "/discovery">Discovery <span class="oi oi-magnifying-glass"></span></a>
                 </li>
                 <li class = "nav-item">
-                    <a class = "nav-link active" href = "/chat">Chat <span class = "sr-only">(current)</span></a>
+                    <a class = "nav-link active" href = "/chat">Chat <span class="oi oi-chat"></span><span class = "sr-only">(current)</span></a>
                 </li>
                 <li class = "nav-item">
-                    <a class = "nav-link" href = "/profile">Profile</a>
+                    <a class = "nav-link" href = "/profile">Profile <span class="oi oi-person"></span></a>
                 </li>
                 <li class = "nav-item">
-                    <a class = "nav-link" href = "#">Notif</a>
+                    <a class = "nav-link" href = "/connect">Connect <span class="oi oi-puzzle-piece"></span></a>
                 </li>
                 <li class = "nav-item">
-                    <a class = "nav-link" href = "/logout">Logout</a>
+                    <a class = "nav-link" href = "#"><span class="oi oi-bell"></span></a>
+                </li>
+                <li class = "nav-item">
+                    <a class = "nav-link" href = "/logout">Logout <span class="oi oi-account-logout"></span></a>
                 </li>
             </ul>
         </div>
@@ -38,9 +41,9 @@
         </div>
         <div class = "row" id = "message-box">
             <div class = "col-md-4">
-                <ul class="list-group friend-list">
-                    <% for (var i = 0; i < friends.length; ++i) { %>
-                    <li class="list-group-item friend" data-id = "<%= friends[i]._id %>"><%= friends[i].name %></li>
+                <ul class="list-group connection-list">
+                    <% for (var i = 0; i < connections.length; ++i) { %>
+                    <li class="list-group-item connection" data-id = "<%= connections[i]._id %>"><%= connections[i].name %></li>
                     <% } %>
                 </ul>
             </div>

@@ -1,5 +1,5 @@
 $(function() {
-    $('.friend').first().addClass('selected'); 
+    $('.connection').first().addClass('selected'); 
 });
 
 $('#message-bar').on('keyup', function (event) {
@@ -25,7 +25,7 @@ $('#message-bar').on('keyup', function (event) {
     }
 });
 
-$('.friend-list').on('click', '.friend', function (event) {
+$('.connection-list').on('click', '.connection', function (event) {
     $(this).siblings().removeClass('selected');
     $(this).addClass('selected'); 
 
