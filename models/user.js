@@ -11,7 +11,9 @@ var userSchema = mongoose.Schema({
     invitations: [String],  
     education: String,
     location: String,
-    imageUrlPath: String
+    imageUrlPath: String,
+    unreadChats: Number,
+    unreadConnections: Number
    });
 
 var User = mongoose.model('User', userSchema);

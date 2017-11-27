@@ -68,7 +68,8 @@ router.get('/profile', function(req, res, next) {
           description: req.session.user.description,
           education: req.session.user.education,
           tags: req.session.user.tags,
-          imageUrlPath: req.session.user.imageUrlPath
+          imageUrlPath: req.session.user.imageUrlPath,
+          unreadChats: req.session.user.unreadChats
         }); 
       }
     });
@@ -98,7 +99,9 @@ router.get('/random', function(req, res, next) {
           description: `Hi there! My name is ${users[i].name.first} and I am a human.`,
           tags: generateRandomTags(),
           location: generateRandomLocation(),
-          imageUrlPath: users[i].picture.large
+          imageUrlPath: users[i].picture.large,
+          unreadChats: 0,
+          unreadConnections: 0
         });
         newUsers.push(newUser);
         newUser.save(function (err, newUser) {

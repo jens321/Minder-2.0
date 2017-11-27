@@ -15,10 +15,11 @@ $('#search-bar').on('keyup', function (event) {
                     var profileLink = $('<a>').attr('href', `/users/${user._id}`); 
                     var imageWithLink = profileLink.append(image); 
                     var cardBody = $('<div>').addClass('card-body'); 
-                    var name = $('<h3>').addClass('card-title name-view').text(user.name); 
-                    var description = $('<p>').addClass('card-text description-view').text(user.description); 
+                    var name = $('<h3>').addClass('card-title name-view').attr('data-id', user._id).text(user.name); 
+                    var description = $('<p>').addClass('card-text description-view').text(user.description);
+                    let invite = $('<button>').addClass('btn btn-primary connect-button').text("Send Invite"); 
                     
-                    var fullCardBody = cardBody.append(name, description); 
+                    var fullCardBody = cardBody.append(name, description, invite); 
                     var fullCard = card.append(imageWithLink, fullCardBody); 
                     var userCard = container.append(fullCard);
                     

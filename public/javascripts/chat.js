@@ -1,15 +1,23 @@
+// reset the unread messages
+$(function() {
+    $.ajax({
+        url: '/users/chat/reset',
+        type: 'patch'
+    });
+});
 
-$('#message-bar').on('keyup', function (event) {
+
+$('#message-bar').on('keyup', function (event) { 
     let value = $(this).val().trim();
     if (event.keyCode == 13 && value !== '') { 
         let message = $('<p>').addClass('message sent').text(value); 
         $('.message-area').append(message); 
+        $('.message-area')[0].scrollTop = $('.message-area')[0].scrollHeight;
         $(this).val(''); 
         let chatData = {
             'receiver': $('.selected').attr('data-id'),
             'message': value
         };
-
         $.ajax({
             url: '/users/chat/:id',
             type: 'post',
@@ -26,7 +34,7 @@ $('.connection-list').on('click', '.connection', function (event) {
     $(this).siblings().removeClass('selected');
     $(this).addClass('selected'); 
 
-    $('.message-area').empty(); 
+    $('.message-area').empty();   
 
     let receiverId = $(this).attr('data-id'); 
 
@@ -48,6 +56,7 @@ $('.connection-list').on('click', '.connection', function (event) {
                 $('.message-area').append(newMessage); 
             }
         }); 
+        $('.message-area')[0].scrollTop = $('.message-area')[0].scrollHeight;
     }).catch(function (err) {
         console.log(err); 
     });

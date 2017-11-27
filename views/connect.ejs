@@ -15,16 +15,13 @@
                     <a class = "nav-link active" href = "/discovery">Discovery <span class="oi oi-magnifying-glass"></span> <span class = "sr-only">(current)</span></a>
                 </li>
                 <li class = "nav-item">
-                    <a class = "nav-link" href = "/chat">Chat <span class="oi oi-chat"></span></a>
+                    <a class = "nav-link" id = "chat-nav-link" href = "/chat">Chat <span class="oi oi-chat"></span> <% if(user.unreadChats !== 0) { %><span id="message-counter"><%= user.unreadChats %></span><% } %></a>
                 </li>
                 <li class = "nav-item">
                     <a class = "nav-link" href = "/profile">Profile <span class="oi oi-person"></span></a>
                 </li>
                 <li class = "nav-item">
                     <a class = "nav-link" href = "/connect">Connect <span class="oi oi-puzzle-piece"></span></a>
-                </li>
-                <li class = "nav-item">
-                    <a class = "nav-link" href = "#"><span class="oi oi-bell"></span></a>
                 </li>
                 <li class = "nav-item">
                     <a class = "nav-link" href = "/logout">Logout <span class="oi oi-account-logout"></span> </a>
@@ -90,17 +87,7 @@
                 id: '<%= user._id %>'
             }
         });
-
-        socket.on('notification', function(newNote) {
-            console.log(newNote);
-            if (newNote.type === "new_message") {
-                let message = $('<div>').addClass('alert alert-info').attr('role', 'alert').text(`New message from ${newNote.sender}`);
-                $('.notifications').append(message);
-                message.hide().fadeIn().delay(800).fadeOut(300, function() {
-                    $('.notifications').empty(); 
-                });  
-            }
-        });
     </script>
+    <script src="/javascripts/socket-notification.js"></script>
 
 <% include footer %>

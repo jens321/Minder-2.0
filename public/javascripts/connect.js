@@ -1,5 +1,5 @@
 // POST Send Invite
-$('.connect-button').on('click', function(event) {
+$('.user-list').on('click', '.connect-button',function(event) {
     $(this).parent().parent().fadeOut(300, function() { 
         $(this).parent().addClass('hidden');  
     }); 
