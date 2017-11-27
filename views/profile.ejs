@@ -2,6 +2,9 @@
 
   <body>
 
+    <div class = "notifications">
+    </div>
+
     <!-- NAVIGATION -->
     <nav class = "navbar navbar-expand-lg navbar-light bg-light">
         <a class = "navbar-brand" href = "/">Minder</a>
@@ -31,6 +34,7 @@
             </ul>
         </div>
     </nav>
+
 
     <div class = "container">
         <div class = "row">
@@ -161,5 +165,25 @@
     <script src = "javascripts/modal.js"></script>
     <script src = "javascripts/edit-profile.js"></script>
     <script src = "javascripts/location.js"></script>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        let socket = io({
+            query: {
+                id: '<%= user._id %>'
+            }
+        });
+
+        socket.on('notification', function(newNote) {
+            console.log(newNote);
+            if (newNote.type === "new_message") {
+                let message = $('<div>').addClass('alert alert-info').attr('role', 'alert').text(`New message from ${newNote.sender}`);
+                $('.notifications').append(message);
+                message.hide().fadeIn().delay(800).fadeOut(300, function() {
+                    $('.notifications').empty(); 
+                }); 
+            }
+        });
+    </script>
   
     <% include footer %>

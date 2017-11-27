@@ -212,3 +212,11 @@ html,body {
 #connect-header {
   margin-top: 30px; 
 }
+
+.notifications {
+  position: fixed;
+  right: 20px; 
+  top: 100px; 
+  width: 200px;
+  z-index: 999; 
+}

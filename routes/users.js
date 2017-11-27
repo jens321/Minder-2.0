@@ -32,7 +32,6 @@ router.post('/signup', function(req, res, next) {
   // save user to the database
   user.save(function (err, user) {
     if (err) throw err; 
-    console.log('NEW USER SAVED IN DB');
     req.session.user = user; 
     res.send(user); 
   }); 
@@ -42,8 +41,7 @@ router.post('/signup', function(req, res, next) {
 router.post('/login', function (req, res, next) { 
   User.findOne({ email: req.body.email }, function(err, user)  {
     if (err) throw err;
-    if (user.password === req.body.password) {
-      console.log(user); 
+    if (user.password === req.body.password) { 
       req.session.user = user; 
       res.send(user);  
     } else {
@@ -57,12 +55,10 @@ router.post('/connect/:id', function(req, res, next) {
 
   User.findByIdAndUpdate(req.session.user._id, { $push: { pending: req.params.id } }, { new: true }, function(err, newUser) {
     req.session.user = newUser; 
-    console.log(req.session.user); 
     res.end(); 
   });
 
   User.findByIdAndUpdate(req.params.id, { $push: { invitations: req.session.user._id }}, { new: true }, function(err, newUser) {
-    console.log(newUser);
     res.end(); 
   }); 
 
@@ -80,7 +76,6 @@ router.patch('/connect/accept/:id', function(req, res, next) {
       $pull: { pending: req.session.user._id },
       $push: { connections: req.session.user._id } 
     }, { new: true }, function(err, newUser) {
-      console.log(newUser); 
       res.end(); 
     });
   });
@@ -97,7 +92,6 @@ router.patch('/connect/cancel/:id', function(req, res, next) {
    User.findByIdAndUpdate(req.params.id, {
      $pull: { invitations: req.session.user._id }
    }, { new: true }, function(err, newUser) {
-     console.log(newUser); 
      res.end(); 
    });
  });
@@ -127,10 +121,16 @@ router.post('/chat/:id', function (req, res, next) {
     ids.sort();
     var room = ids[0] + ids[1]; 
 
-    socketio.instance().to(`chat_${room}`).emit('chat', newMessage);
-
+    User.findById(req.session.user._id, function(err, senderUser) {
+      socketio.instance().to(`chat_${room}`).emit('chat', newMessage);
+      socketio.sockets()[req.body.receiver].emit('notification', {
+        type: 'new_message',
+        data: newMessage,
+        sender: senderUser.name
+      });
+      res.end(); 
+    }).select('name'); 
   });
-
 }); 
 
 router.get('/chat/history', function (req, res, next) { 
@@ -151,7 +151,6 @@ router.get('/chat/history', function (req, res, next) {
 
       if(socketio.sockets()[req.session.user._id]) {
         socketio.sockets()[req.session.user._id].join(`chat_${room}`);
-        console.log('user joined room', room); 
       }
       res.status(200).json(messageHistory);  
     }); 
@@ -172,10 +171,7 @@ router.patch('/', function (req, res, next) {
   User.findByIdAndUpdate(req.session.user._id, req.body, {new: true}, function(err, newUser) {
     if (err) console.log(err);  
     
-    req.session.user = newUser 
-    console.log(req.session.user);  
-
-    console.log('updated user successfully'); 
+    req.session.user = newUser   
     res.status(200).json(newUser);   
   }); 
 });

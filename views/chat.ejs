@@ -62,7 +62,7 @@
 
     <script src="/socket.io/socket.io.js"></script>
     <script>
-        var socket = io({
+        let socket = io({
             query: {
                 id: '<%= id %>'
             }
@@ -78,6 +78,7 @@
                 $('.message-area').append(newMessage);
             }
         });
+    </script>
     </script>
     <script src = "/javascripts/chat.js"></script>
 

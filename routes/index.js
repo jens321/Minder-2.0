@@ -27,7 +27,6 @@ router.get('/discovery', function(req, res, next) {
 
   User.find({ tags: { $in: req.session.user.tags }, _id: { $nin: invalidIds  } })
     .then(function (data) {
-      console.log(data); 
       res.render('discovery', {
         title: 'Minder', 
         people: data
@@ -38,7 +37,6 @@ router.get('/discovery', function(req, res, next) {
 // GET Chat
 router.get('/chat', function(req, res, next) {
   User.find({ '_id': req.session.user.connections }, function(err, connections) {
-    console.log(connections); 
     res.render('chat', { title: 'Minder', connections: connections, id: req.session.user._id }); 
   }).select("name _id"); 
 });
@@ -112,8 +110,7 @@ router.get('/random', function(req, res, next) {
 }); 
 
 
-router.get('/search/:searchQuery', function(req, res, next) {
-  console.log(req.params); 
+router.get('/search/:searchQuery', function(req, res, next) { 
   if(req.params.searchQuery.trim() === '') return res.end();
 
   User.find({ name: { $regex: req.params.searchQuery } })
