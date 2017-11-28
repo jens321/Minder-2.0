@@ -211,6 +211,19 @@ router.patch('/', function (req, res, next) {
     delete req.body.image; 
   }
 
+  req.body.location = {
+    name: req.body.location,
+    geo: {
+      type: 'Point',
+      coordinates: [parseFloat(req.body.lng), parseFloat(req.body.lat)],
+    }
+  }
+
+  delete req.body.lat;
+  delete req.body.lng; 
+
+  console.log(req.body); 
+
   User.findByIdAndUpdate(req.session.user._id, req.body, {new: true}, function(err, newUser) {
     if (err) throw err;   
     

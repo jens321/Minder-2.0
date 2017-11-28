@@ -86,7 +86,7 @@
                             </div>
                             </li>
                         <li class = "list-group-item">Education: <span id = "education-view"><%= education %></span></li>
-                        <li class = "list-group-item text-center">Location: <span id = "location-view"><%= location %></span><div id = "map"></div></li>
+                        <li class = "list-group-item text-center">Location: <span id = "location-view"><%= user.location.name %></span><div id = "map"></div></li>
                     </ul>
                     <div class = "card-body">
                         <button class = "btn btn-primary" id = "edit-button">Edit Profile</button>
@@ -133,7 +133,7 @@
                             <li class = "list-group-item">
                                 <div class = "form-group">
                                     <label for = "location">Location</label>
-                                    <input type = "text" class = "form-control" id = "location" value = "<%= location %>" placeholder = "e.g. San Francisco, CA">
+                                    <input type = "text" class = "form-control" id = "location" value = "<%= user.location.name %>" placeholder = "e.g. San Francisco, CA">
                                 </div>
                             </li>
                         </ul>

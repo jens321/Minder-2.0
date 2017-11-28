@@ -1,6 +1,6 @@
-var mongoose = require('mongoose'); 
+let mongoose = require('mongoose'); 
 
-var userSchema = mongoose.Schema({
+let userSchema = mongoose.Schema({
     name: String,
     email: String,
     password: String,
@@ -10,12 +10,13 @@ var userSchema = mongoose.Schema({
     pending: [String], 
     invitations: [String],  
     education: String,
-    location: String,
+    location: Object,
     imageUrlPath: String,
     unreadChats: Number,
     unreadConnections: Number
    });
 
-var User = mongoose.model('User', userSchema);
+userSchema.index({'location.geo': '2dsphere'});
+let User = mongoose.model('User', userSchema);
 
 module.exports = User; 
