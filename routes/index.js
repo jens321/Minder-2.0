@@ -3,6 +3,7 @@ let router = express.Router();
 let mongoose = require('mongoose');
 let axios = require('axios'); 
 let User = require('../models/user.js');  
+let auth = require('../utils/auth'); 
 
 // GET Home Page
 router.get('/', function(req, res, next) {
@@ -10,7 +11,7 @@ router.get('/', function(req, res, next) {
 });
 
 // GET Discovery
-router.get('/discovery', function(req, res, next) {
+router.get('/discovery', auth.requireLogin, function(req, res, next) {
   // filter for people with similar tags
   let connections = req.session.user.connections.map(function(element) {
     return mongoose.Types.ObjectId(element); 
@@ -66,14 +67,14 @@ router.get('/discovery', function(req, res, next) {
 }); 
 
 // GET Chat
-router.get('/chat', function(req, res, next) {
+router.get('/chat', auth.requireLogin, function(req, res, next) {
   User.find({ '_id': req.session.user.connections }, function(err, connections) {
     res.render('chat', { title: 'Minder', connections: connections, id: req.session.user._id }); 
   }).select("name _id"); 
 });
 
 // GET Connect
-router.get('/connect', function(req, res, next) { 
+router.get('/connect', auth.requireLogin,  function(req, res, next) { 
   User.find({ _id: { $in: req.session.user.invitations } })
     .then(function (invitations) {
       User.find({ _id: { $in: req.session.user.pending } })
@@ -84,7 +85,7 @@ router.get('/connect', function(req, res, next) {
 });
 
 // GET Profile
-router.get('/profile', function(req, res, next) {
+router.get('/profile', auth.requireLogin, function(req, res, next) {
   if (req.session && req.session.user) { 
     User.findOne({ email: req.session.user.email }, function (err, user) {
       if (!user) {

@@ -6,6 +6,7 @@ var User = require('../models/user.js');
 var fs = require('fs'); 
 var Chat = require('../models/chat.js');
 var socketio = require('../socketio'); 
+let auth = require('../utils/auth');
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
@@ -202,7 +203,7 @@ router.get('/:id', function(req, res, next) {
   });
 });
 
-router.patch('/', function (req, res, next) {  
+router.patch('/', auth.requireLogin, function (req, res, next) {  
   if (req.body.image) { 
     var buffer = new Buffer(req.body.image, 'base64');
     fs.writeFileSync(`${__dirname}/../public/images/profile/${req.session.user._id}.png`, buffer);
