@@ -15,12 +15,14 @@ router.get('/', function(req, res, next) {
 // -------------------------- SIGNUP/LOGIN ROUTES --------------------------
 
 router.post('/signup', function(req, res, next) { 
-
+  console.log('got here');
+  let hashedPassword = User.hashPassword(req.body.password); 
+  console.log(hashedPassword); 
   // build new user object from req.body
   let user = new User({
     name: req.body.name,
     email: req.body.email,
-    password: req.body.password,
+    password: hashedPassword,
     location: "",
     education: "",
     description: "",
@@ -45,11 +47,12 @@ router.post('/signup', function(req, res, next) {
 router.post('/login', function (req, res, next) { 
   User.findOne({ email: req.body.email }, function(err, user)  {
     if (err) throw err;
-    if (user.password === req.body.password) { 
+    if (!user) return res.send('User does not exist. Please try again'); 
+    if (user.checkPassword(req.body.password)) { 
       req.session.user = user; 
-      res.send(user);  
+      res.send('success');  
     } else {
-      console.log('invalid email or password') 
+      return res.send('Invalid password. Please try again.') 
     }
   }); 
 

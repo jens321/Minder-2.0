@@ -1,4 +1,7 @@
 let mongoose = require('mongoose'); 
+let bcrypt = require('bcrypt'); 
+
+let saltRounds = 10; 
 
 let userSchema = mongoose.Schema({
     name: String,
@@ -17,6 +20,18 @@ let userSchema = mongoose.Schema({
    });
 
 userSchema.index({'location.geo': '2dsphere'});
+class UserClass {
+  static hashPassword(password) {
+    return bcrypt.hashSync(password, saltRounds);
+  }
+
+  checkPassword(password) {
+    return bcrypt.compareSync(password, this.password);
+  }
+}
+
+userSchema.loadClass(UserClass);
+
 let User = mongoose.model('User', userSchema);
 
 module.exports = User; 

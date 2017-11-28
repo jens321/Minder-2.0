@@ -233,3 +233,7 @@ html,body {
 .discovery-header{
   margin-top: 30px; 
 }
+
+.error-messages {
+  margin-top: 20px; 
+}
