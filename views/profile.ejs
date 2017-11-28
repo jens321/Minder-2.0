@@ -14,19 +14,19 @@
         <div class = "collapse navbar-collapse" id = "navbarNav">
             <ul class = "navbar-nav">
                 <li class = "nav-item">
-                    <a class = "nav-link" href = "discovery">Discovery <span class="oi oi-magnifying-glass"></span></a>
+                    <a class = "nav-link" href = "/discovery">Discovery <span class="oi oi-magnifying-glass"></span></a>
                 </li>
                 <li class = "nav-item">
                     <a class = "nav-link" id = "chat-nav-link" href = "chat" id = "chat-nav-link">Chat <span class="oi oi-chat"></span> <% if(user.unreadChats !== 0) { %><span id="message-counter"><%= user.unreadChats %></span><% } %></a>
                 </li>
                 <li class = "nav-item">
-                    <a class = "nav-link active" href = "profile">Profile <span class="oi oi-person"></span><span class = "sr-only">(current)</span></a>
+                    <a class = "nav-link active" href = "/profile">Profile <span class="oi oi-person"></span><span class = "sr-only">(current)</span></a>
                 </li>
                 <li class = "nav-item">
                     <a class = "nav-link" href = "/connect">Connect <span class="oi oi-puzzle-piece"></span></a>
                 </li>
                 <li class = "nav-item">
-                    <a class = "nav-link" href = "/users/logout">Logout <span class="oi oi-account-logout"></span> </a>
+                    <a class = "nav-link" href = "/logout">Logout <span class="oi oi-account-logout"></span> </a>
                 </li>
             </ul>
         </div>
@@ -159,9 +159,9 @@
     
 
     <!-- CUSTOM SCRIPTS -->
-    <script src = "javascripts/modal.js"></script>
-    <script src = "javascripts/edit-profile.js"></script>
-    <script src = "javascripts/location.js"></script>
+    <script src = "/javascripts/modal.js"></script>
+    <script src = "/javascripts/edit-profile.js"></script>
+    <script src = "/javascripts/location.js"></script>
 
     <script src="/socket.io/socket.io.js"></script>
     <script>

@@ -1,16 +1,18 @@
+
 // When edit button clicked, change to edit mode
 $('#edit-button').click(function (event) {
     event.preventDefault(); 
     $('.edit-form').removeClass('hidden');
     $('.view-card').addClass('hidden'); 
+    isEditMode = true; 
 });
 
 // When save button clicked, change to view mode
 $('#save-button').click(function (event) {
+    event.preventDefault();
     $('.edit-form').addClass('hidden');
     $('.view-card').removeClass('hidden');
     codeAddress();
-    event.preventDefault();
     
     // get all the new tags 
     var tags = $('.taglist-edit').children();
@@ -19,34 +21,75 @@ $('#save-button').click(function (event) {
         tagList.push($(tags[i]).text().split(' ')[0]); 
     }
 
-    var userFormData = {
-        'name': $('#name').val(), 
-        'email': $('#email').val(),
-        'description': $('#description').val(),
-        'tags': tagList,
-        'education': $('#education').val(),
-        'location': $('#location').val(),
-        'image': $('.profile-image')[0].currentSrc.split(',')[1]
-    };   
+    let imageData;
+    if (uploadImage) {
+        let reader = new FileReader();
+        reader.onload = function(event) {
 
-    $.ajax({
-        url: "/users",
-        type: 'patch',
-        data: userFormData,
-        success: function(data, status) {   
-            $('#name-view').text(data.name);
-            $('#email-view').text(data.email);
-            $('#location-view').text(data.location);
-            $('#description-view').text(data.description);
-            $('#education-view').text(data.education);
-            $('.taglist-view').empty();
-            for (var i = 0; i < data.tags.length; ++i) { 
-                var newTag = $('<span>').addClass('tag').text(data.tags[i]);
-                $('.taglist-view').append(newTag); 
-            }
-            $('.profile-image').attr('src', data.imageUrlPath); 
+            var userFormData = {
+                'name': $('#name').val(), 
+                'email': $('#email').val(),
+                'description': $('#description').val(),
+                'tags': tagList,
+                'education': $('#education').val(),
+                'location': $('#location').val(),
+                'image': event.target.result.split(',')[1]
+            };   
+
+            $.ajax({
+                url: "/users",
+                type: 'patch',
+                data: userFormData,
+                success: function(data, status) {  
+                    console.log(data);  
+                    $('#name-view').text(data.name);
+                    $('#email-view').text(data.email);
+                    $('#location-view').text(data.location);
+                    $('#description-view').text(data.description);
+                    $('#education-view').text(data.education);
+                    $('.taglist-view').empty();
+                    for (var i = 0; i < data.tags.length; ++i) { 
+                        var newTag = $('<span>').addClass('tag').text(data.tags[i]);
+                        $('.taglist-view').append(newTag); 
+                    } 
+                }
+            });
         }
-    });
+
+        reader.readAsDataURL(uploadImage);  
+    } else {
+
+        imageData = $('.profile-image')[0].currentSrc.split(',')[1]; 
+
+        var userFormData = {
+            'name': $('#name').val(), 
+            'email': $('#email').val(),
+            'description': $('#description').val(),
+            'tags': tagList,
+            'education': $('#education').val(),
+            'location': $('#location').val(),
+            'image': imageData
+        };   
+
+        $.ajax({
+            url: "/users",
+            type: 'patch',
+            data: userFormData,
+            success: function(data, status) {   
+                $('#name-view').text(data.name);
+                $('#email-view').text(data.email);
+                $('#location-view').text(data.location);
+                $('#description-view').text(data.description);
+                $('#education-view').text(data.education);
+                $('.taglist-view').empty();
+                for (var i = 0; i < data.tags.length; ++i) { 
+                    var newTag = $('<span>').addClass('tag').text(data.tags[i]);
+                    $('.taglist-view').append(newTag); 
+                }
+            }
+        });
+    }
+    isEditMode = false; 
 });
 
 $('#delete-button').click(function (event) {

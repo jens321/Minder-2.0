@@ -203,9 +203,8 @@ router.get('/:id', function(req, res, next) {
   });
 });
 
-router.patch('/', function (req, res, next) { 
-
-  if (req.body.image) {
+router.patch('/', function (req, res, next) {  
+  if (req.body.image) { 
     var buffer = new Buffer(req.body.image, 'base64');
     fs.writeFileSync(`${__dirname}/../public/images/profile/${req.session.user._id}.png`, buffer);
     req.body.imageUrlPath = `../images/profile/${req.session.user._id}.png`; 

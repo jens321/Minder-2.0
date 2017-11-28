@@ -1,4 +1,6 @@
-var profileUrlPath = $('.profile-image').val(); 
+let profileUrlPath = $('.profile-image').val(); 
+let uploadImage; 
+let isEditMode = false; 
 
 // When page is loaded, hide the forms
 $('.signup-form, .login-form').hide(); 
@@ -16,8 +18,10 @@ $('#login-button').click(function () {
 });
 
 $('.profile-image').click(function() {
-    $('.modal').modal(); 
-    openWebCamModal(); 
+    if (isEditMode) {
+      $('.modal').modal(); 
+      openWebCamModal(); 
+    }
 });
 
 // When modal closes, stop streaming webcam
@@ -39,7 +43,8 @@ $('#upload-button').click(function () {
 // if the input file event has changed, change the src of the profile image
 $('#upload-input').change(function (event) {
     $('.modal').modal('hide'); 
-    $('.profile-image').attr('src', URL.createObjectURL(event.target.files[0]));  
+    $('.profile-image').attr('src', URL.createObjectURL(event.target.files[0]));   
+    uploadImage = event.target.files[0]; 
 });
 
 var openWebCamModal = function() {
@@ -149,7 +154,8 @@ var openWebCamModal = function() {
       
         var data = canvas.toDataURL('image/png');
         photo.setAttribute('src', data);
-        profileUrlPath = data;  
+        profileUrlPath = data;
+        uploadImage = undefined;   
       } else {
         // clearphoto();  
       }
