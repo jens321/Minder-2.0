@@ -126,7 +126,7 @@ router.get('/random', function(req, res, next) {
         let newUser = User({
           name: users[i].name.first + " " + users[i].name.last,
           email: users[i].email,
-          password: users[i].login.password,
+          password: User.hashPassword(users[i].login.password),
           description: `Hi there! My name is ${users[i].name.first} and I am a human.`,
           tags: generateRandomTags(),
           location: { geo : {

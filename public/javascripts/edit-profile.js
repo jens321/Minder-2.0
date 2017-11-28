@@ -112,8 +112,9 @@ $('#delete-button').click(function (event) {
 })
 
 // Add tags in edit mode
-$('#tag').keyup(function (event) {
-    if (event.keyCode == 32) {
+$('#tag').keyup(function (event) { 
+    event.preventDefault();
+    if (event.keyCode === 32 || event.keyCode === 13) { 
         var tagDelete = $('<span>').addClass('tag-delete').text('x');
         var tag = $('<span>').addClass('tag').text($(this).val() + ' ').append(tagDelete); 
         $('.taglist-edit').append(tag); 

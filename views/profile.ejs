@@ -17,7 +17,7 @@
                     <a class = "nav-link" href = "/discovery">Discovery <span class="oi oi-magnifying-glass"></span></a>
                 </li>
                 <li class = "nav-item">
-                    <a class = "nav-link" id = "chat-nav-link" href = "chat" id = "chat-nav-link">Chat <span class="oi oi-chat"></span> <% if(user.unreadChats !== 0) { %><span id="message-counter"><%= user.unreadChats %></span><% } %></a>
+                    <a class = "nav-link" id = "chat-nav-link" href = "/chat" id = "chat-nav-link">Chat <span class="oi oi-chat"></span> <% if(user.unreadChats !== 0) { %><span id="message-counter"><%= user.unreadChats %></span><% } %></a>
                 </li>
                 <li class = "nav-item">
                     <a class = "nav-link active" href = "/profile">Profile <span class="oi oi-person"></span><span class = "sr-only">(current)</span></a>
@@ -78,14 +78,14 @@
                     <ul class = "list-group list-group-flush">
                         <li class = "list-group-item">Email: <span id = "email-view"><%= email %></span></li>
                         <li class = "list-group-item">
-                            Tags 
+                            <b>Tags</b>
                             <div class = "taglist-view">
                                 <% for(var i = 0; i < tags.length; i++) { %>
                                     <span class = "tag"><%= tags[i] %></span>
                                 <% } %>
                             </div>
                             </li>
-                        <li class = "list-group-item">Education: <span id = "education-view"><%= education %></span></li>
+                        <li class = "list-group-item"><b>Education</b><br> <span id = "education-view"><%= education %></span></li>
                         <li class = "list-group-item text-center">Location: <span id = "location-view"><%= user.location.name %></span><div id = "map"></div></li>
                     </ul>
                     <div class = "card-body">
@@ -94,7 +94,7 @@
                 </div>
 
                 <!-- PROFILE CARD EDIT -->
-                <form class = "hidden edit-form">
+                <div class = "hidden edit-form">
                     <div class = "card">
                         <div class = "card-body">
                             <div class = "form-group">
@@ -142,7 +142,7 @@
                             <button class = "btn btn-danger" id = "delete-button">Delete Profile</button>
                         </div>
                     </div>
-                </form>
+                </div>
             </div>
         </div>
     </div>
