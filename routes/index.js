@@ -105,7 +105,6 @@ router.get('/profile', function(req, res, next) {
       }
     });
   } else {
-    console.log('user was redirected to home page, session expired'); 
     res.redirect('/'); 
   }
 });

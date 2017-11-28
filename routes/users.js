@@ -15,9 +15,7 @@ router.get('/', function(req, res, next) {
 // -------------------------- SIGNUP/LOGIN ROUTES --------------------------
 
 router.post('/signup', function(req, res, next) { 
-  console.log('got here');
-  let hashedPassword = User.hashPassword(req.body.password); 
-  console.log(hashedPassword); 
+  let hashedPassword = User.hashPassword(req.body.password);  
   // build new user object from req.body
   let user = new User({
     name: req.body.name,
@@ -147,8 +145,7 @@ router.post('/chat/increment', function(req, res, next) {
   User.findByIdAndUpdate(req.session.user._id, { $inc: { unreadChats: 1 } }, { new: true }, function (err, newUser) {
     if (err) throw err; 
 
-    req.session.user = newUser;
-    console.log(newUser);  
+    req.session.user = newUser;  
   });
 });
 
@@ -157,7 +154,6 @@ router.patch('/chat/reset', function(req, res, next){
     if (err) throw err; 
 
     req.session.user = newUser;
-    console.log(newUser); 
   });
 });
 
@@ -224,8 +220,6 @@ router.patch('/', function (req, res, next) {
 
   delete req.body.lat;
   delete req.body.lng; 
-
-  console.log(req.body); 
 
   User.findByIdAndUpdate(req.session.user._id, req.body, {new: true}, function(err, newUser) {
     if (err) throw err;   

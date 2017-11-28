@@ -68,7 +68,6 @@
         socket.on('chat', function(newMessage) {
             let receiverId = $(this).attr('data-id');
             let value = newMessage.message; 
-            console.log('message received!'); 
 
             if (newMessage.sender !== '<%= id %>') {
                 let newMessage = $('<p>').addClass('message received').text(value); 

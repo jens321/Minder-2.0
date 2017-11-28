@@ -1,7 +1,7 @@
 $('#signup-submit-button').click(function (event) {
     event.preventDefault(); 
     $.ajax({
-        url: "http://localhost:3000/users/signup",
+        url: "/users/signup",
         type: 'post',
         data: {
             'name': $('#signup-name').val(), 
@@ -9,7 +9,6 @@ $('#signup-submit-button').click(function (event) {
             'password': $('#signup-password').val()
         },
         success: function(data, status) {
-            console.log(data); 
             window.location.replace('/profile'); 
         }
     });
@@ -18,7 +17,7 @@ $('#signup-submit-button').click(function (event) {
 $('#login-submit-button').click(function (event) {
     event.preventDefault();
     $.ajax({
-        url: "http://localhost:3000/users/login",
+        url: "/users/login",
         type: 'post',
         data: {
             'email': $('#login-email').val(),
