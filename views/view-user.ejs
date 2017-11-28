@@ -51,8 +51,8 @@
                             </div>
                             </li>
                         <li class = "list-group-item">Education: <span id = "education-view"><%= user.education %></span></li>
-                        <li class = "list-group-item text-center">Location: <span id = "location-view"><%= user.location %></span><div id = "map"></div></li>
-                        <input type = "text" class = "form-control hidden" id = "location" value = "<%= user.location %>" placeholder = "e.g. San Francisco, CA">
+                        <li class = "list-group-item text-center">Location: <span id = "location-view"><%= user.location.name %></span><div id = "map"></div></li>
+                        <input type = "text" class = "form-control hidden" id = "location" value = "<%= user.location.name %>" placeholder = "e.g. San Francisco, CA">
                     </ul>
                 </div>
 

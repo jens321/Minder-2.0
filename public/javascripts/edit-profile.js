@@ -23,7 +23,7 @@ $('#save-button').click(function (event) {
         for (var i = 0; i < tags.length; ++i) {
             tagList.push($(tags[i]).text().split(' ')[0]); 
         }
-
+        console.log(coords.lat(), coords.lng()); 
         let imageData;
         if (uploadImage) {
             let reader = new FileReader();

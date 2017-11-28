@@ -36,6 +36,7 @@
                 <input type = "text" placeholder = "Search for people" class = "form-control" id = "search-bar">
             </div>
         </div>
+        <h2 class = "discovery-header">Similar Interests</h2><hr>
         <div class = "row user-list">
             <% for (var i = 0; i < people.length; ++i) { %>
                 <div class = "col-md-4">
@@ -49,6 +50,21 @@
                     </div>
                 </div>
             <% } %> 
+        </div>
+        <h2 class = "discovery-header">Near You</h2><hr>
+        <div class = "row user-list">
+            <% for (var i = 0; i < similarLocation.length; ++i) { %>
+                <div class = "col-md-4">
+                    <div class = "card view-card">
+                        <a href = "/users/<%=similarLocation[i]._id%>"><img class="card-img-top" src="<%= similarLocation[i].imageUrlPath %>" alt="Card image cap"></a>
+                        <div class = "card-body">
+                            <h3 class = "card-title name-view" data-id="<%= similarLocation[i]._id %>"><%= similarLocation[i].name %></h3>
+                            <p class = "card-text description-view"><%= similarLocation[i].description %></p>
+                            <button class = "btn btn-primary connect-button">Send Invite</button>
+                        </div>
+                    </div>
+                </div>
+            <% } %>
         </div>
     </div>
 
